@@ -1,0 +1,107 @@
+
+body{
+    font-family: 'inknut-antiqua', sans-serif;/*tipo de letra*/
+}
+
+body{
+    background-color: rgb(233, 186, 186);/*fondo de la pagina*/
+}
+
+body .offline-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6% 10px;
+}
+
+.ne {
+    font-size: 34px;
+    font-family: Inria Serif;
+    color: #2B3467;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+
+.offline-state p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.offline-state img{
+    height: 793px;
+}
+
+.ad img{
+    height: 300px;
+    width: 300px;
+}
+
+.bajo{
+    background-color: #ffe4e1;
+    background-image: repeating-linear-gradient(70deg, #ffe4e1, #ffe4e1 65px, #fff 50px, #fff 100px);
+    padding: 20px;
+    text-align: center;
+    color: #000;
+}
+
+.centro h2{
+    font-family: Inter;
+    text-decoration-color: #454545;
+    font-size: 26px;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.copyri{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+   
+.copy{
+    width: 12px;
+    height: 12px;
+}
+
+.circle{
+    width: 7px;
+    height: 7px;
+    inline-size: none;
+    margin-left: 15px;
+    align-items: center;
+}
+
+.ter{
+    font-size: 12px;
+    font-family: Inter;
+    margin-left: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.pol{
+    font-size: 12px;
+    font-family: Inter;
+    margin-left: 13px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.vo {
+    margin-top: 20px;
+    
+}
+.vo a{
+    background-color: #ffe4e1;
+    padding: 12px 12px;
+    color: #000;
+    border-radius: 12px;
+}
+
+.vo a:hover{
+    background-color: bisque;
+    font-weight: 600;
+}
+   
