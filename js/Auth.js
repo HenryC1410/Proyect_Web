@@ -134,10 +134,7 @@ function protegerPagina(rolesPermitidos) {
  
   return true;
 }
- 
-/* ================================================
-   ARRANQUE
-================================================ */
+
 inicializarUsuarios();
 
 
