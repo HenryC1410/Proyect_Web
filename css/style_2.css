@@ -324,12 +324,20 @@ footer{
   font-size: 1.4rem;
   transition: color 0.3s ease;
 }
- 
-    /* ---- RESPONSIVE ---- */
+
+
 @media (max-width: 480px) {
     .login-card {
         padding: 2.8rem 2rem;
         border-radius: 14px;
+    }
+
+    #email{
+        width: 32rem;
+    }
+
+    #password{
+        width: 32rem;
     }
  
     h1 { 
