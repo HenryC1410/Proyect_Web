@@ -1,0 +1,343 @@
+/*Estilos del login*/
+
+:root {
+  --color-primario:    #1B4F8A;
+  --color-primario-bg: #E8F0FB;
+  --color-accent:     #B35C00;
+  --color-accent-bg:  #FFF3E0;
+  --color-estado-1:   #5C5C8A;
+  --color-estado-2:   #1B4F8A;
+  --color-estado-3:   #B35C00;
+  --color-estado-4:   #1A6B5A;
+  --color-estado-5:   #2D7A2D;
+  --color-error:      #9B1C1C;
+  --color-info:       #1A5C7A;
+  --color-bg-page:    #F4F4F0;
+  --color-text:       #1A1A1A;
+  --color-text-muted: #5C5C5C;
+}
+
+html{
+  font-size: 62.5%;
+}
+/*lo que hace esta configuracion es modificar tamaño fuente base para usar rem*/
+/*1rem =10px*/
+body{
+    font-size: 16px;
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: var(--color-bg-page);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+  width: auto;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  height: 15rem;
+  background-color: var(--color-primario);
+  font-family: 'archivo black', sans-serif;
+}
+
+.logo{
+  width: 10rem;
+  border-radius: 50%;
+}
+.heade{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heade h1{
+  text-align: center;
+  color: var(--color-primario-bg);
+  margin: 0 4.6rem;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+}
+ 
+.login-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid #D8E5F5;
+    padding: 4rem;
+    width: 100%;
+    max-width: 44rem;
+    box-shadow: 0 4px 32px rgba(27, 79, 138, 0.08);
+}
+ 
+.card-icon {
+    width: 5.6rem;
+    height: 5.6rem;
+    background: var(--color-primario-bg);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+}
+ 
+.card-icon svg {
+    width: 2.8rem;
+    height: 2.8rem;
+    color: var(--color-primario);
+}
+ 
+h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.6rem;
+    color: var(--color-text);
+    text-align: center;
+    margin: 0 0 0.6rem;
+}
+ 
+.card-sub {
+    font-size: 1.5rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin: 0 0 3rem;
+}
+ 
+
+.msg-error {
+    display: none;
+    align-items: center;
+    gap: 0.8rem;
+    background: #FCEBEB;
+    border: 1px solid #F0C0C0;
+    border-radius: 10px;
+    padding: 1rem 1.4rem;
+    font-size: 1.4rem;
+    color: var(--color-error);
+    margin-bottom: 2rem;
+}
+ 
+.msg-error.visible { 
+    display: flex; 
+}
+ 
+.msg-error svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    flex-shrink: 0;
+}
+ 
+.field {
+    margin-bottom: 1.8rem;
+}
+ 
+.field label {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.02em;
+}
+ 
+.input-wrap {
+    position: relative;
+}
+ 
+.input-wrap svg.icon-field {
+    position: absolute;
+    left: 1.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2rem;
+    height: 2rem;
+    color: #A0B4CC;
+    pointer-events: none;
+}
+ 
+.field input {
+    width: 40rem;
+    padding: 1.2rem 1.4rem 1.2rem 4.4rem;
+    border: 1.5px solid #C8D8EE;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    font-family: 'Vazirmatn', sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg-page);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+ 
+.field input:focus {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px rgba(27,79,138,0.1);
+    background: #fff;
+}
+ 
+.field input.error-field {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(155,28,28,0.08);
+}
+ 
+.toggle-pw {
+    position: absolute;
+    right: 1.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #A0B4CC;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+ 
+.toggle-pw svg {
+    width: 2rem;
+    height: 2rem;
+}
+ 
+.toggle-pw:hover { 
+    color: var(--color-primario);
+}
+ 
+
+.field-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.4rem;
+}
+ 
+.check-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+    cursor: pointer;
+}
+ 
+.check-label input[type="checkbox"] {
+    width: 1.6rem;
+    height: 1.6rem;
+    accent-color: var(--color-primario);
+    cursor: pointer;
+}
+ 
+.link-olv {
+    font-size: 1.4rem;
+    color: var(--color-primario);
+    text-decoration: none;
+}
+ 
+.link-olv:hover { 
+    text-decoration: underline; 
+}
+ 
+
+.btn-login {
+    width: 100%;
+    padding: 1.4rem;
+    background: var(--color-primario);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.6rem;
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: background-color 0.2s, transform 0.15s;
+}
+ 
+.btn-login:hover    { 
+    background: #163F6E; 
+}
+.btn-login:active   { 
+    transform: scale(0.98); 
+}
+.btn-login:disabled { 
+    background: #8AAECE; cursor: not-allowed; 
+}
+ 
+.btn-login svg { 
+    width: 2rem; height: 2rem; 
+}
+ 
+
+.card-footer {
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+    margin-top: 2.4rem;
+}
+ 
+.card-footer a {
+    color: var(--color-primario);
+    text-decoration: none;
+    font-weight: 600;
+}
+ 
+.card-footer a:hover { 
+    text-decoration: underline; 
+}
+
+
+footer{
+  background-color: var(--color-accent-bg);
+}
+
+.ends{
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--color-text-muted);
+  padding: 1.4rem 0;
+}
+
+.uni{
+  font-weight: 600;
+}
+
+.footer-links{
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.footer-links a{
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 1.4rem;
+  transition: color 0.3s ease;
+}
+ 
+    /* ---- RESPONSIVE ---- */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 2.8rem 2rem;
+        border-radius: 14px;
+    }
+ 
+    h1 { 
+        font-size: 2.2rem; 
+    }
+}
+ 
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}

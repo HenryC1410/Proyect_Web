@@ -789,17 +789,3 @@ footer{
   }
 
 }
-
-/*Estilos del login*/
-
-.heade{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.heade h1{
-  text-align: center;
-  color: var(--color-primario-bg);
-  margin: 0 4.6rem;
-}
