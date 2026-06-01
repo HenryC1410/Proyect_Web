@@ -150,9 +150,7 @@
       }).join('');
     }
  
-    /* ================================================
-       MODAL OPERADOR — ABRIR / CERRAR
-    ================================================ */
+
     let editandoId = null;
  
     function abrirModalOperador() {
@@ -195,10 +193,7 @@
       document.getElementById('modal-operador').classList.remove('visible');
       editandoId = null;
     }
- 
-    /* ================================================
-       GUARDAR OPERADOR (crear o editar)
-    ================================================ */
+
     function guardarOperador() {
       const nombres   = document.getElementById('op-nombres').value.trim();
       const apellidos = document.getElementById('op-apellidos').value.trim();
@@ -246,11 +241,11 @@
         const nombreCompleto = `${nombres} ${apellidos}`;
  
         if (editandoId) {
-          // EDITAR
+          
           const idx = usuarios.findIndex(x => x.id === editandoId);
           if (idx === -1) return;
  
-          // Verificar email duplicado (excluyendo el propio)
+          
           const dupEmail = usuarios.find(u => u.email.toLowerCase() === email.toLowerCase() && u.id !== editandoId);
           if (dupEmail) {
             setModalFieldError('op-email', 'op-email-msg', 'Ese correo ya está registrado.');
@@ -277,7 +272,7 @@
             errEl.style.display = 'flex';
             return;
           }
-          // Asignar rol correcto (signUp siempre crea como cliente, lo corregimos)
+
           const usrs = getUsuarios();
           const nuevo = usrs.find(u => u.email.toLowerCase() === email.toLowerCase());
           if (nuevo) { nuevo.rol = rol; nuevo.activo = activo; setUsuarios(usrs); }
@@ -289,9 +284,7 @@
       }, 700);
     }
  
-    /* ================================================
-       ELIMINAR USUARIO
-    ================================================ */
+
     let eliminarId = null;
  
     function pedirEliminar(id, nombre) {

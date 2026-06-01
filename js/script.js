@@ -1,4 +1,5 @@
-const envios = {
+
+const ENVIOS_INICIALES = {
     "LOG-2025-0042": {
       destinatario: "Ana Torres — Manta, Manabí",
       estadoActual: 3,
@@ -37,6 +38,17 @@ const envios = {
       ]
     }
 };
+
+const KEY_ENVIOS = "logitrack_envios";
+ 
+function getEnvios() {
+    const raw = localStorage.getItem(KEY_ENVIOS);
+    if (!raw) {
+        localStorage.setItem(KEY_ENVIOS, JSON.stringify(ENVIOS_INICIALES));
+        return ENVIOS_INICIALES;
+    }
+    return JSON.parse(raw);
+}
 
 const estados = [
     {
@@ -83,23 +95,21 @@ function rastrearEnvio() {
     const msgError  = document.getElementById('msg-error');
     const resultado = document.getElementById('resultado');
  
-
     input.classList.remove('error');
     msgError.classList.remove('visible');
     resultado.classList.remove('visible');
  
     const valor = input.value.trim().toUpperCase();
  
-
     if (!valor) {
-      mostrarError(input, msgError, 'El campo no puede estar vacío. Ingresa un número de guía.');
-      return;
+        mostrarError(input, msgError, 'El campo no puede estar vacío. Ingresa un número de guía.');
+        return;
     }
  
     const formatoValido = /^LOG-\d{4}-\d{4}$/.test(valor);
     if (!formatoValido) {
-      mostrarError(input, msgError, `Formato inválido. Debe ser LOG-YYYY-XXXX (ej: LOG-2025-0042).`);
-      return;
+        mostrarError(input, msgError, `Formato inválido. Debe ser LOG-YYYY-XXXX (ej: LOG-2025-0042).`);
+        return;
     }
  
     btnRas.disabled = true;
@@ -110,24 +120,23 @@ function rastrearEnvio() {
       Buscando...`;
  
     setTimeout(() => {
-      btnRas.disabled = false;
-      btnRas.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="20" height="20" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-        </svg>
-        Rastrear`;
-
-      const envio = envios[valor];
+        btnRas.disabled = false;
+        btnRas.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="20" height="20" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          Rastrear`;
  
-      if (!envio) {
-        mostrarError(input, msgError, `No encontramos el envío ${valor}. Verifica el número e intenta de nuevo.`);
-        return;
-      }
+        const envio = getEnvios()[valor];
  
-      mostrarResultado(valor, envio);
+        if (!envio) {
+            mostrarError(input, msgError, `No encontramos el envío ${valor}. Verifica el número e intenta de nuevo.`);
+            return;
+        }
+ 
+        mostrarResultado(valor, envio);
     }, 900);
 }
- 
 
 function mostrarError(input, msgError, texto) {
     input.classList.add('error');
@@ -138,10 +147,9 @@ function mostrarError(input, msgError, texto) {
  
 
 function mostrarResultado(guia, envio) {
-    const estadoIdx  = envio.estadoActual - 1; // 0-based
+    const estadoIdx  = envio.estadoActual - 1;
     const estadoInfo = estados[estadoIdx];
  
-
     document.getElementById('res-numero').textContent = guia;
     document.getElementById('res-dest').textContent   = envio.destinatario;
  
@@ -155,76 +163,72 @@ function mostrarResultado(guia, envio) {
       </svg>
       ${estadoInfo.nombre}`;
  
-
     const porcentaje = ((envio.estadoActual - 1) / (estados.length - 1)) * 100;
     document.getElementById('progreso-fill').style.width = porcentaje + '%';
  
-
     const stepsEl = document.getElementById('progreso-steps');
     stepsEl.innerHTML = '';
     estados.forEach((est, i) => {
-      const num      = i + 1;
-      const esHecho  = num < envio.estadoActual;
-      const esActual = num === envio.estadoActual;
-      const clase    = esHecho ? 'hecho' : esActual ? 'actual' : 'pendiente';
+        const num      = i + 1;
+        const esHecho  = num < envio.estadoActual;
+        const esActual = num === envio.estadoActual;
+        const clase    = esHecho ? 'hecho' : esActual ? 'actual' : 'pendiente';
  
-      const circleStyle = esHecho
-        ? `background:${est.color}; border-color:${est.color};`
-        : esActual
-        ? `background:${est.color}; border-color:${est.color};`
-        : '';
+        const circleStyle = esHecho
+            ? `background:${est.color}; border-color:${est.color};`
+            : esActual
+            ? `background:${est.color}; border-color:${est.color};`
+            : '';
  
-      stepsEl.innerHTML += `
-        <div class="step ${clase}" aria-label="${est.nombre}: ${clase}">
-          <div class="step-circle" style="${circleStyle}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                 stroke-width="2" stroke="${esHecho || esActual ? '#fff' : '#A0B4CC'}" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="${est.svgPath}" />
-            </svg>
-          </div>
-          <span class="step-num" style="color:${esHecho || esActual ? est.color : ''}">
-            ${String(num).padStart(2,'0')}
-          </span>
-          <span class="step-lbl" style="color:${esHecho || esActual ? est.color : 'var(--color-text-muted)'}">
-            ${est.nombre}
-          </span>
-        </div>`;
+        stepsEl.innerHTML += `
+          <div class="step ${clase}" aria-label="${est.nombre}: ${clase}">
+            <div class="step-circle" style="${circleStyle}">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                   stroke-width="2" stroke="${esHecho || esActual ? '#fff' : '#A0B4CC'}" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="${est.svgPath}" />
+              </svg>
+            </div>
+            <span class="step-num" style="color:${esHecho || esActual ? est.color : ''}">
+              ${String(num).padStart(2,'0')}
+            </span>
+            <span class="step-lbl" style="color:${esHecho || esActual ? est.color : 'var(--color-text-muted)'}">
+              ${est.nombre}
+            </span>
+          </div>`;
     });
  
     const timelineEl = document.getElementById('timeline');
     timelineEl.innerHTML = '';
-    const histRev = [...envio.historial].reverse(); 
+    const histRev = [...envio.historial].reverse();
     histRev.forEach((item, i) => {
-      const esReciente = i === 0;
-      const idxEst     = estados.findIndex(e => e.nombre === item.estado);
-      const color      = idxEst >= 0 ? estados[idxEst].color : 'var(--color-primario)';
+        const esReciente = i === 0;
+        const idxEst     = estados.findIndex(e => e.nombre === item.estado);
+        const color      = idxEst >= 0 ? estados[idxEst].color : 'var(--color-primario)';
  
-      timelineEl.innerHTML += `
-        <div class="tl-item">
-          <div class="tl-left">
-            <div class="tl-dot"
-              style="background:${esReciente ? color : '#fff'};
-                     border-color:${color};"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-body">
-            <p class="tl-estado" style="color:${color}">${item.estado}</p>
-            <p class="tl-meta">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                   stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
-              ${item.fecha} &nbsp;·&nbsp; ${item.actor}
-            </p>
-            <p class="tl-obs">${item.obs}</p>
-          </div>
-        </div>`;
+        timelineEl.innerHTML += `
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot"
+                style="background:${esReciente ? color : '#fff'};
+                       border-color:${color};"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-body">
+              <p class="tl-estado" style="color:${color}">${item.estado}</p>
+              <p class="tl-meta">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                ${item.fecha} &nbsp;·&nbsp; ${item.actor}
+              </p>
+              <p class="tl-obs">${item.obs}</p>
+            </div>
+          </div>`;
     });
  
-
     document.getElementById('resultado').classList.add('visible');
- 
     document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
  
@@ -233,8 +237,8 @@ document.getElementById('input-guia').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') rastrearEnvio();
 });
  
-
 document.getElementById('input-guia').addEventListener('input', function() {
     this.classList.remove('error');
     document.getElementById('msg-error').classList.remove('visible');
 });
+ 
